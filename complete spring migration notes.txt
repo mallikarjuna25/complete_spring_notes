@@ -1,0 +1,1777 @@
+------------------------------------------------Spring-----------------------------------------------------------------------------------------------------
+what is spring ?                  
+spring is a open source,lightweight framework. 
+springframework comprises several modules such IOC,AOP,DAO,Context,ORM,WEB MVC etc.
+these collection of modules "provide various aspects" of application development and "making it easier to build and maintain" Java-based applications.
+
+Key features:
+It achieves this through various "key features", such as:
+                 1)Inversion of Control (IoC):    Spring implements the IoC principle, where the control of object creation and
+                                                  management is shifted from the application code to the Spring container. 
+                                                  This helps in achieving loose coupling between components and promotes easier
+                                                  unit testing and better maintainability.
+                 2)Dependency Injection (DI):  DI is a specific form of IoC, where the required dependencies of an object are
+                                                    provided (injected) externally rather than being created within the object. 
+                                                    Spring facilitates dependency injection, making it easier to manage and switch
+                                                    dependencies, and promoting modularity.
+                 3)Aspect-Oriented Programming (AOP):   AOP allows the separation of cross-cutting concerns (e.g., logging, security,
+                                                           transactions) from the business logic of an application. Spring's AOP 
+                                                           support enables developers to modularize these concerns and apply them 
+                                                           consistently across the application.
+                 4)Spring MVC:   Spring offers a robust Model-View-Controller (MVC) framework for building web applications. It provides
+                                  a structured way to handle web requests, manage views, and bind data between the model and view components.
+                 5)Data Access and Integration: Spring provides various modules for data access, such as Spring Data, which simplifies
+                                                 database interaction through JPA, JDBC, or other ORM frameworks. Additionally, Spring 
+                                                 supports integration with messaging systems, web services, and more.
+                 7)Spring Security:  This module helps in implementing security features like authentication, authorization, and other
+                                    security-related concerns to secure applications.
+                 8)Spring Boot:  Spring Boot is an extension of the Spring framework that simplifies the process of building production-ready, 
+                                  standalone Spring applications. It includes embedded servers, auto-configuration, and opinionated dependencies 
+                                  that reduce boilerplate code and setup.
+
+-----------------spring modules diagram -----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> IOC(inversion of control) and dependency injection 
+these are the design patterns that are used to remove the dependency from programming code. they make the code easier to test amd maintain.
+Lets understand the following code:
+        Class Employee{
+            Address address;
+            Employee(){
+            address = new Address();
+            }}
+in such case, there is dependency between the Employee and the Address(tight coupling). in the IOC scenario we would something like this
+        Class Employee{
+            Address address;
+            Employee(Address address){
+            this.address = new Address();
+            }}
+thus, IOC makes the code Loosly coupled. in such case, their is no need to modify the code if our logic is removed to new environment.
+
+in spring framework IOC container is responsible to inject the dependency. 
+we provide "matadata" to the IOC container either by XML file or annotation
+
+advantages of spring framework:
+             predefined templates
+             loose coupling (because of dependency injection)
+             easy to test
+             Lightweight
+             fast development
+             powerful abstraction
+             declarative support ( its support like validation, transactions, caching and formatting)
+
+
+IOC Container:
+--------------
+     The IOC container is responsible to "instanciate, configure and assemble" the "objects". 
+     the IOC conainer "gets information" from the XML file and works accordingly
+the main tasks are performed by IOC container are: (note: same as what is the role of IOC container ?)
+    1)to instantiate the application class
+    2)to configure the object
+    3)to assemble the dependencies between the objects 
+
+they are two type of IOC containers.
+    1)BeanFactory
+    2)ApplicationContext
+
+Note: (what is the difference between BeanFactory and aplicationContext ?)
+      BeanFactory is the "basic Container" and aplicationContext is the "advanced Container".
+      ApplicationContext interface is built on top of the BeanFactroty interface.
+      its add some extra functionality than BeanFactory such "simple integration with AOP"
+                                                             "message resouce handling"
+                                                             "Event propagation"
+                                                             "application layer for specific context(e.g WebApplicationContext) for web application"
+Dependency Injection:
+--------------------
+       it is a design pattern that removes the dependency from the programming code.
+       so that it can be easy to manage and test the application.
+       Dependency Injection makes the programming code losely coupled.
+
+  problems of dependency injection:   
+       1)tight coupling
+       2)not easy for testing
+  two ways to perform DI(Dependency injection) in spring framework
+       1)By Constructor
+       2)By Setter method         example: Class Employee{
+                                           Address address;
+                                              Employee(Address address){
+                                              this.address = address;
+                                              }
+                                              public void setAddress(Address address){
+                                              this.address = address;
+                                              }
+                                           } 
+                                   in such case, instance of Address class is provided by 
+                                   external source such as XML file either by constructor or setter method
+  advantages of dependency injection:
+             makes the code loose coupled so easy to maintain
+             makes the code easy to test
+
+spring with Hibernate:
+----------------------
+we can simply integrate hibernate application with spring application.
+
+in Hibernate framework, we provide all the database information hibernate.cfg.xml file 
+
+but if we are going to integrate the hibernate application with spring, we dont need to create the hibernate.cfg.xml file.
+we can provide all the information in the applicationContext.xml file.
+
+Advantages:
+   the spring framework provides the Hibernate Template class. so you don't need to follow so many steps like
+   create, configuration, BuildSessionFactory, Session, beginning and commiting transaction etc.
+   so, it saves a lot of code.
+
+Steps for Hibernate and spring integration:
+   1)create table in the database (it is optional)
+   2)Create "ApplicationContext.xml" file it contains information of DataSource, SessionFactory etc.
+   3)create Employee.java file it is the persistent class
+   4)create employee.hbm.xml file it is mapping file.
+   5)create EmployeeDao.java file it is the dao class that uses HibernateTemplate.
+   6)create insertTest.java file it calls methods of EmployeeDao class.
+
+spring data JPA---------------------------------------------------------------------------------------------------------
+
+Spring Data JPA API provides JpaTemplate class to integrate spring application with JPA.
+
+JPA(java persistent API) it is used as the "replacement" for "complex entity beans".
+
+The Implementation of JPA specification are provided by many vendors such as: Hibernate
+                                                                              Toplink
+                                                                              iBatis 
+                                                                              OpenJPA etc
+Advantages:
+       you don't need to write the before and after code for persisting, updating, deleting or searching objects such as
+                                                                                               creating persistence instance,
+                                                                                               creating EntityManagerFactory instance,
+                                                                                               creating EntityTransaction instance,
+                                                                                               creating EntityManager instance,. etc
+                                                                                               it save a lot of code.
+                                                                                               
+                                                                              
+
+spring INTERVIEW Questions----------------------------------------------------------------------------------------------
+
+1)what is the difference between constructor injection and setter injection?
+         constructor injection                                     setter injection
+    1) No partial injection                              1)Partial injection
+    2) Doesn't Override the setter property              2)Overrides the constructor property if both are defined
+    3) Creates new instance if any modification occur    3)Doesn't create new instance if you change the property value 
+    4) Better for too many properties                    4)Better for few properties
+
+2)what are the different bean scopes in spring?
+  there are 5 beanscopes in spring framework:
+            1)singleton     :  the bean instance will be once and same instance will be returned by the IOC container. it is the default scope.
+            2)prototype     :  the bean instance will be created each time when requested.
+            3)request       :  the bean instance will be created per HTTP request.
+            4)session       :  the bean instance will be created per HTTP session.
+            5)globalsession :  the bean instance will be created per HTTP global session. it can be used in portlet context only.
+   Note:
+        What is the difference between Singleton and Prototype bean scopes in Spring?
+   ---->in which scenario Singleton and Prototype bean scopes are used?
+        Sinleton scope should be used with EJB "stateless session bean" and 
+        Prototype scope should be used with EJB "stateful bean".           
+
+3)what is autowiring in spring? what are the autowiring modes?
+  Autowiring enabling the programmer to inject the bean automatically. we dont't need to write explicit injection logic.
+Modes:
+      1) no	        this is the default mode, it means autowiring is not enabled.
+      2) byName	        injects the bean based on the property name. It uses setter method.
+      3) byType	        injects the bean based on the property type. It uses setter method.
+      4) constructor	It injects the bean using constructor
+
+4)what are the transaction management support by spring?
+  1) Programmatic Transaction Management: should be used for few transaction management
+  2) Declarative Transaction Management: should be used for many transaction management
+
+
+
+spring JDBC interview questions----------------------------------------------------------------------------------------------
+
+1) what are the advantages of jdbcTemplate in spring?
+   Less code: By using the jdbcTemplate class, you don't need to create connection,statement,start transaction,commit transaction and close connection
+              to excute different queries.
+              you can excute the query directly.
+
+2)what are the classes for jdbc API ?
+  1. jdbc template
+  2. simplejdbc template (Advantage: support the feature of var-args and autoboxing)
+  3. NamedParameter jdbc template (Advantage: is used to passed a value to the named parameter)
+  4. SimplejdbcInsert
+  5. SimplejdbcCall
+
+3)How can you fetch records by spring jdbc template?
+  you can fetch records from the database by the query method of jdbcTemplate. their are two interfaces to do this:
+  1. resultsetExtractor
+  2. RowMapper(it iterates the ResultSet internally and adds in to the collection)
+Note: what is RowMapper ?
+        
+spring AOP interview questions-------------------------------------------------------------------------------------------------
+
+what is AOP ?
+AOP is Aspect Oriented programming. 
+it is a "methodology" that devides the program logic into pieces or parts or concerns.
+it increase the modularity and Key unit is Aspect.
+
+what are the advantages of spring AOP?
+AOP enables you to dynamically add or remove concern before or after the business logic. it is pluggable and easy to maintain
+
+What are the AOP terminology?
+1) JoinPoint (joinpoint is any point in your program such as field access, method excution, exception handling etc.
+             Note: spring support all joinpoints ?
+                   No, spring supports method execution joinpoint only.)
+2) Advice    (Advice represents action taken by aspect)
+             what are the types of advice in AOP ?
+             1) Before Advice
+             2) After Advice 
+             3) After Returning Advice 
+             4) throws Advice 
+             5) Around Advice
+3) Pointcut  (is expression language of spring AOP)
+4) Aspect    (is a class in spring AOP that contains advices and joinpoints)
+5) Introduction (represents introduction of new fields and methods for a type)
+6) Target Object (is a proxy object that is advised by one or more aspects)
+7) interceptor (is a class like aspect that contains one advice only)
+8) AOP Proxy 
+9) weaving (is a process of linking aspect with other application)
+
+Note: what is joinpoint? or pointcut? or weaving ?
+
+what are the AOP implementation?
+1)spring AOP
+2)Apache AspectJ
+3)JBoss AOP
+
+spring MVC Interview Question----------------------------------------------------------------------------------------------------
+
+1)What is Spring MVC?
+A Spring MVC is a Java Framework which is used to develop dynamic web applications. 
+It implements all the basic features of a core spring framework like "Inversion of Control and Dependency Injection". 
+It follows the Model-View-Controller design pattern.
+
+     Model - A model contains the data of the application. Data can be a single object or a collection of objects.
+Controller - A controller contains the business logic of an application. Here, the @Controller annotation is 
+             used to mark the class as the controller.
+      View - A view represents the provided information in a particular format. So, we can create a view page by using 
+             view technologies like JSP+JSTL, Apache Velocity, Thymeleaf, and FreeMarker.
+
+2)What are the advantages of Spring MVC Framework?
+The following are the advantages of Spring MVC Framework : -
+
+Separate roles - The Spring MVC separates the application into three interconnected layers where each layer has its role.
+Light-weight - It uses light-weight servlet container to develop and deploy your application.
+Powerful Configuration - It provides a robust configuration for both framework.
+Rapid development - The Spring MVC facilitates fast and parallel development.
+Reusable business code.
+Flexible Mapping - It provides the specific annotations that easily redirect the page.
+
+----------------MVC work flow diagram--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3)what is the front controller class of spring MVC?
+The DispatcherServlet class works as the front controller in spring MVC.
+
+The front controller is a DispatcherServlet class present in org.springframework.web.servlet package. 
+It dispatches the request to the appropriate controller and manages the flow of the application. 
+It is required to specify the DispatcherServlet class in the web.xml file.
+
+
+
+4) What does an additional configuration file contain in Spring MVC application?
+The Spring MVC application contains an additional configuration file that contains the properties information. 
+This file can be created either in the form of an xml file or properties file. 
+In this file, we generally define the base-package and view resolver where DispatcherServlet searches for the 
+controller classes and view components path. However, it can also contain various other configuration properties.
+
+5) What is an InternalResourceViewResolver in Spring MVC?
+The InternalResourceViewResolver is a class which is used to resolve internal view in Spring MVC. Here, you can define the properties like prefix and suffix where prefix contains the location of view page and suffix contains the extension of view page. For example:-
+
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <property name="prefix" value="/WEB-INF/jsp/"></property>  
+        <property name="suffix" value=".jsp"></property>          
+     </bean>  
+
+6)what does @Controller annotation? (or How to declare a class as a controller class in Spring MVC ?)
+The @Controller annotation marks the class as controller class. it is applied on the class.
+
+7)what does @RequestMapping annotation ?
+ The @RequestMapping annotation maps the request with the method. it is applied on the method.
+ Note:How to map controller class and its methods with URL?
+     The @RequestMapping annotation is used to map the controller class and its methods. You can specify this annotation on the class name as well as method name with a particular URL that represents the path of the requested page. For example:-
+
+      @Controller   
+      @RequestMapping("/ form")  
+      class Demo{  
+       @RequestMapping("/show")  
+       public String display(){  
+          }
+                }  
+
+8)Name the annotations used to handle different types of incoming HTTP request methods?
+  The following annotations are used to handle different types of incoming HTTP request methods: - @GetMapping
+                                                                                                   @PostMapping
+                                                                                                   @PutMapping
+                                                                                                   @PatchMapping
+                                                                                                   @DeleteMapping
+9) What is the purpose of @PathVariable annotation in Spring MVC?
+The @PathVariable annotation is used to extract the value of the URI template. It is passed within the parameters of the handler method.
+
+For example :-
+          @RequestMapping("/show/{id}")  
+          public String handler(@PathVariable("id") String s, Model map){  
+            }
+
+10) What is the role of @ResponseBody annotation in Spring MVC?
+The @ResponseBody annotation is used to serialize the returned object automatically in JSON and bind it with the Http response body. 
+Here, it not required to invoke the model.
+
+For example :-
+@RequestMapping("/show")  
+    @ResponseBody  
+    public ResponseHandler display(  
+      @RequestBody ShowForm form) {  
+        return new ResponseHandler("display form");  
+     }  
+} 
+
+11) What is the role of the Model interface in Spring MVC?
+The Model interface works as a container that contains the data of the application. 
+Here, data can be in any form such as objects, strings, information from the database, etc. 
+
+12) What is ModelMap in Spring MVC?
+The ModelMap is a class that provides the implementation of Map. 
+It extends the LinkedHashMap class. 
+It facilitates to pass a collection of values as if they were within a Map.
+
+13) What are the ways of reading data from the form in Spring MVC?
+The following ways to read the data from the form are: -
+HttpServletRequest interface - The HttpServletRequest is a java interface present in javax.servlet.http package. 
+                               Like Servlets, you can use HttpServletRequest in Spring to read the HTML form data provided by the user.
+@RequestParam annotation     - The @RequestParam annotation reads the form data and binds it automatically to the parameter present in the provided method.
+@ModelAttribute annotation   - The @ModelAttribute annotation binds a method parameter or its return value to a named model attribute.
+
+14) What is Spring MVC form tag library?
+The Spring MVC form tags can be seen as data binding-aware tags that can automatically set data to Java object/bean and also retrieve from it. 
+These tags are the configurable and reusable building blocks for a web page. 
+It provides view technologies, an easy way to develop, read, and maintain the data.
+
+
+15) What do you understand by validations in Spring MVC?
+
+The validation is one of the most important features of Spring MVC, that is used to "restrict the input" provided by the user. 
+To validate the user's input, it is required to use the Spring 4 or higher version and Bean Validation API. 
+Spring validations can validate both server-side as well as client-side applications.
+
+16)What is Bean Validation API?
+
+The Bean Validation API is a Java specification which is used to apply constraints on object model via annotations. 
+Here, we can validate a length, number, regular expression, etc. Apart from that, we can also provide custom validations.
+
+As Bean Validation API is just a specification, it requires an implementation. So, for that, it uses Hibernate Validator. 
+The Hibernate Validator is a fully compliant JSR-303/309 implementation that allows to express and validate application constraints.
+
+17)What is the use of @Valid annotation in Spring MVC?
+The @Valid annotation is used to apply validation rules on the provided object.
+
+18) What is the purpose of BindingResult in Spring MVC validations?
+The BindingResult is an interface that contains the information of validations. For example :-
+
+@RequestMapping("/helloagain")  
+    public String submitForm( @Valid @ModelAttribute("emp") Employee e, BindingResult br)  
+    {  
+        if(br.hasErrors())  
+        {  
+            return "viewpage";  
+        }  
+        else  
+        {  
+        return "final";  
+        }  
+    } 
+
+19)How to validate user's input within a number range in Spring MVC?
+In Spring MVC Validation, we can validate the user's input within a number range by using the following annotations: -
+
+@Min annotation - It is required to pass an integer value with @Min annotation. The user input must be equal to or greater than this value.
+@Max annotation - It is required to pass an integer value with @Max annotation. The user input must be equal to or smaller than this value.
+
+20)How to validate the user input in a particular sequence in Spring MVC?
+The Spring MVC Validation allows us to validate the user input in a particular sequence by using @Pattern annotation. 
+
+21)What is the purpose of custom validations in Spring MVC?
+The Spring MVC framework allows us to perform custom validations. 
+In such a case, we declare our own annotations. 
+We can perform validation based on own business logic.
+
+22)What do you understand by Spring MVC Tiles?
+The Spring provides integration support with apache tiles framework. 
+So we can manage the layout of the Spring MVC application with the help of spring tiles support. 
+advantages of Tiles support in Spring MVC: -
+           Reusability: We can reuse a single component in multiple pages like header and footer components.
+           Centralized control: We can control the layout of the page by a single template page only.
+           Easy to change the layout: By the help of a single template page, we can change the layout of the page anytime. 
+                                      So your website can easily adopt new technologies such as bootstrap and jQuery.
+
+------------------------------------------------Spring Boot------------------------------------------------------------------------------------------------
+spring boot is a open source java-based framework used to create a micro service. 
+it is used to build stand alone and production ready spring applications.
+
+what is micro service ?
+micro service is an architecture that allows the developers to develop and deploy services indipendently.
+each service running has its "own process" this achieve the "lightWeight" model to support business applications.
+Advantages :
+         easy deployment
+         minimum configuration 
+         lesser production time
+         simple scalability
+         compatible with containers
+
+what is spring boot ?
+spring boot provides a good platform for java developers to develop a stand alone and production ready spring applications that you can just run.
+you can get started with minimum configurations without the need for an entire spring configuration setup.
+advantages:
+          easy to understand and develop spring applications.
+          increase productivity
+          reduces the development time 
+Goals:
+       to avoid complex XML configuration in spring 
+       to develop production ready spring applications in an "easier way"
+       to reduce the development time and running indipendently
+       offer an easier way of getting started with the application 
+
+Spring Boot Features:
+                Web Development
+                SpringApplication
+                Application events and listeners
+                Admin features
+                Externalized Configuration
+                Properties Files
+                YAML Support
+                Type-safe Configuration
+                Logging
+                Security
+
+why spring boot ?
+you can choose the spring boot because the "benefits" and "features" 
+      it provide a flexible way to configure java beans, XML configurations, and database transactions.
+      it provide a powerful batch processing and manage REST endPoints.
+      in spring boot everything is auto configured, no manual configurations are needed.
+      it offers annotation based spring application
+      ease dependency management
+      it include embedded servlet container
+
+how does it works ?
+spring boot automatically confiures yor application based on the dependencies you have added to the project by using "@EnableAutoConfiguration" annotation
+for example , if MYSQL database is on your classpath, but "you not configured any Database connection" then spring boot autoconfigures as in-memory database
+the "entry point" of the spring boot is the class contains "@SpringBootApplication" annotation and the main method.
+spring boot automatically scans all the components included in the project by using "@ComponentScan" annotation. 
+
+Note: How do I enable Spring Boot auto-configuration?
+      Spring Boot's auto-configuration is enabled by default when you include the spring-boot-starter dependency. 
+      It automatically configures various beans based on the libraries and dependencies you include in your classpath.   
+
+
+Annotations------------------------------------------------------------------------------------------------------------------------------
+
+@Required: It applies to the bean setter method. It indicates that the annotated bean must be populated at 
+           configuration time with the required property, else it throws an exception BeanInitilizationException.
+
+Example
+
+
+public class Machine   
+{  
+private Integer cost;  
+@Required  
+public void setCost(Integer cost)   
+{  
+this.cost = cost;  
+}  
+public Integer getCost()   
+{  
+return cost;  
+}     
+}  
+@Autowired: Spring provides annotation-based auto-wiring by providing @Autowired annotation. It is used to autowire 
+spring bean on setter methods, instance variable, and constructor. When we use @Autowired annotation, the spring container 
+auto-wires the bean by matching data-type.
+
+Example
+
+@Component  
+public class Customer  
+{  
+private Person person;  
+@Autowired  
+public Customer(Person person)   
+{   
+this.person=person;  
+}  
+}  
+@Configuration: It is a class-level annotation. The class annotated with @Configuration used by Spring Containers 
+                as a source of bean definitions.
+
+Example
+
+@Configuration  
+public class Vehicle  
+{  
+@BeanVehicle engine()  
+{  
+return new Vehicle();  
+}  
+}  
+@ComponentScan: It is used when we want to scan a package for beans. It is used with the annotation @Configuration. 
+                We can also specify the base packages to scan for Spring Components.
+
+Example
+
+@ComponentScan(basePackages = "com.javatpoint")  
+@Configuration  
+public class ScanComponent  
+{  
+// ...  
+}  
+@Bean: It is a method-level annotation. 
+       It is an alternative of XML <bean> tag. 
+       It tells the method to produce a bean to be managed by Spring Container.
+
+Example
+@Bean  
+public BeanExample beanExample()   
+{  
+return new BeanExample ();  
+}  
+
+Spring Framework Stereotype Annotations------------------------------------------------------------------------------
+
+In the Spring Framework, Stereotype Annotations are used to provide metadata to Spring about the 
+"classes", indicating their "roles and behaviors" within the "application context". 
+These annotations help in the automatic detection and configuration of "Spring components", making the fast development process.
+
+The main Stereotype Annotations in Spring are:
+
+@Component:
+It indicates that a class is a Spring component and is eligible for auto-detection and auto-configuration by the Spring container. 
+The component is typically used for general-purpose beans(used to mark a Java class as a bean).
+
+
+@Controller:
+This annotation is used to mark a class as a web request handler(Spring MVC controller). 
+It is used in web applications to handle HTTP requests and defines methods that handle specific URL mappings.
+
+@Service:
+The @Service annotation is used to indicate that a class is a service layer component in the business logic. 
+It is typically used to hold the business logic and is often used in combination with @Autowired to facilitate dependency injection.
+
+@Repository:
+This annotation is used to indicate that a class is a Spring Data repository. 
+It is used to perform database operations and exception translation for a specific data source.
+
+
+@RestController:
+The @RestController annotation is a combination of @Controller and @ResponseBody. 
+It is used to mark a class as a controller that handles RESTful web services. 
+It automatically serializes the return value of controller methods into JSON or XML.
+
+@Configuration:
+This annotation is used to define a class as a configuration class in the Spring context. 
+It is often used in combination with @Bean to define and register beans explicitly.
+
+@Bean:
+The @Bean annotation is used inside a @Configuration class to declare a bean explicitly. 
+It is used to define the Spring beans and their dependencies manually.
+
+@Scope:
+The @Scope annotation is used to define the scope of a Spring bean. 
+It can be used to control the lifecycle and visibility of the bean instances.
+
+@Qualifier:
+The @Qualifier annotation is used in combination with @Autowired to specify which bean should be 
+autowired when there are multiple beans of the same type.
+
+@Value:
+The @Value annotation is used to inject values from properties files, environment variables, or 
+other sources into Spring beans.
+
+
+
+Spring Boot Annotations----------------------------------------------------------------------------------------------
+
+@EnableAutoConfiguration:
+        This is the main annotation used to mark the main class of a Spring Boot application. 
+        It combines @Configuration, @EnableAutoConfiguration, and @ComponentScan annotations, allowing the 
+        application to be auto-configured and scanned for Spring components.
+
+@PropertySource:
+The @PropertySource annotation is used to specify the property files to be used to load external configurations.
+
+@Conditional:
+The @Conditional annotation is used to conditionally enable or disable a configuration or bean based on certain conditions.
+
+@EnableCaching:
+The @EnableCaching annotation enables Spring's caching support for caching frequently accessed data.
+
+@EnableAsync:
+The @EnableAsync annotation enables Spring's asynchronous processing support to execute methods asynchronously.
+
+@EnableScheduling:
+The @EnableScheduling annotation enables Spring's scheduling support to execute methods at fixed intervals or cron expressions.
+
+
+
+Spring MVC and REST Annotations--------------------------------------------------------------------------------------
+@RequestMapping: It is used to map the web requests. 
+                 It has many optional elements like consumes, header, method, name, params, path, produces, and value. 
+                 We use it with the class as well as the method.
+                 It defines the URL pattern and HTTP methods that the method can handle.
+
+Example
+          @Controller  
+          public class BooksController{  
+           
+           @RequestMapping("/computer-science/books")  
+           public String getAllBooks(Model model){  
+             //application code  
+             return "bookList";  
+             } 
+ 
+@GetMapping: It maps the HTTP GET requests on the specific handler method. 
+It is used to create a web service endpoint that fetches It is used instead of using: @RequestMapping(method = RequestMethod.GET)
+
+@PostMapping: It maps the HTTP POST requests on the specific handler method. 
+It is used to create a web service endpoint that creates It is used instead of using: @RequestMapping(method = RequestMethod.POST)
+
+@PutMapping: It maps the HTTP PUT requests on the specific handler method. 
+It is used to create a web service endpoint that creates or updates 
+It is used instead of using: @RequestMapping(method = RequestMethod.PUT)
+
+@DeleteMapping: It maps the HTTP DELETE requests on the specific handler method. 
+It is used to create a web service endpoint that deletes a resource. 
+It is used instead of using: @RequestMapping(method = RequestMethod.DELETE)
+
+@PatchMapping: It maps the HTTP PATCH requests on the specific handler method. 
+It is used instead of using: @RequestMapping(method = RequestMethod.PATCH)
+
+@RequestHeader: It is used to get the details about the HTTP request headers. 
+We use this annotation as a method parameter. 
+The optional elements of the annotation are name, required, value, defaultValue. 
+For each detail in the header, we should specify separate annotations. 
+We can use it multiple time in a method
+
+@RestController: It can be considered as a combination of @Controller and @ResponseBody annotations. 
+The @RestController annotation is itself annotated with the @ResponseBody annotation. 
+It eliminates the need for annotating each method with @ResponseBody.
+
+@RequestAttribute: It binds a method parameter to request attribute. 
+It provides convenient access to the request attributes from a controller method. 
+With the help of @RequestAttribute annotation, we can access objects that are populated on the server-side.  
+
+@PathVariable:
+The @PathVariable annotation is used to extract values from the URL path and pass them as method parameters in a controller method.
+
+@RequestParam:
+The @RequestParam annotation is used to extract query parameters from the URL and pass them as method parameters in a controller method.
+
+@RequestBody:
+The @RequestBody annotation is used to map the request body to a method parameter(Internally it uses HTTP MessageConverters 
+to convert the body of the request) in a controller method, especially in RESTful web services.
+
+@ResponseBody:
+The @ResponseBody annotation is used to indicate that the return value of a controller method should be serialized and sent as the response body.
+(It tells the Spring Boot Framework to serialize a return an object into JSON and XML format.)
+
+@ModelAttribute:
+The @ModelAttribute annotation is used to bind form data or request attributes to a method parameter or model attribute.
+
+@SessionAttributes:
+The @SessionAttributes annotation is used to store model attributes in the session to be used across multiple requests.
+
+@InitBinder:
+The @InitBinder annotation is used to customize data binding and type conversion for specific request parameters.
+
+@CrossOrigin:
+The @CrossOrigin annotation is used to enable cross-origin requests (CORS) for specific controller methods.  
+
+
+Spring Boot Dependency Management---------------------------------------------------
+Spring Boot manages dependencies and configuration automatically. 
+Each release of Spring Boot provides a list of dependencies that it supports. 
+The list of dependencies is available as a part of the Bills of Materials (spring-boot-dependencies) that can be used with Maven. 
+So, we need not to specify the version of the dependencies in our configuration. 
+Spring Boot upgrades all dependencies automatically when we update the Spring Boot version.
+
+Advantages of Dependency Management 
+    It helps when we switch from one version to another.
+    It avoids mismatch of different versions of Spring Boot libraries.
+    We only need to write a library name with specifying the version.
+
+What are the Spring Boot properties?
+Spring Boot provides various properties which can be specified inside our project's application.properties file. 
+These properties have default values and you can set that inside the properties file. 
+Properties are used to set values like: server-port number, database connection configuration etc.  
+
+
+ What are the Spring Boot Starters?
+Starters are a set of convenient dependency descriptors which we can include in our application.
+
+Spring Boot provides built-in starters which makes development easier and rapid. 
+For example, if we want to get started using Spring and JPA for database access, just include the spring-boot-starter-data-jpa dependency in your project.
+
+What is Spring Boot Actuator?
+Spring Boot provides actuator to monitor and manage our application. 
+Actuator is a tool which has HTTP endpoints. 
+when application is pushed to production, you can choose to manage and monitor your application using HTTP endpoints.
+
+What is thymeleaf?
+It is a server side Java template engine for web application. It's main goal is to bring elegant natural templates to your web application.
+It can be integrate with Spring Framework and ideal for HTML5 Java web applications.
+
+How to connect Spring Boot to the database using JPA?
+Spring Boot provides spring-boot-starter-data-jpa starter to connect Spring application with relational database efficiently. 
+You can use it into project POM (Project Object Model) file.
+
+How to connect Spring Boot application to database using JDBC?
+Spring Boot provides starter and libraries for connecting to our application with JDBC. 
+Here, we are creating an application which connects with Mysql database. It includes the following steps to create and setup JDBC with Spring Boot.
+
+one time read questions==================================================================================================================================
+
+What is Spring Data JPA, and how do you use it in Spring Boot?
+
+Spring Data JPA is a part of the Spring Data project that simplifies the development of data access layers in Spring applications, 
+specifically for working with JPA (Java Persistence API). JPA is a standard specification for ORM (Object-Relational Mapping) in Java, 
+which allows you to map Java domain objects to relational database tables and perform CRUD (Create, Read, Update, Delete) operations 
+on those entities using object-oriented programming.
+
+Spring Data JPA builds upon the standard JPA and provides a higher-level abstraction to interact with databases, reducing boilerplate 
+code and promoting a more declarative approach to data access. It allows you to write repository interfaces with predefined methods for 
+common data access operations, such as finding entities by ID, properties, and custom query methods. Spring Data JPA takes care of 
+generating the SQL queries based on the method names, reducing the need for writing explicit queries.
+
+To use Spring Data JPA in a Spring Boot application, follow these steps:
+
+Include Spring Data JPA Dependency:
+Ensure that you have the Spring Data JPA starter dependency in your pom.xml (if using Maven).
+Spring Boot will automatically configure JPA and Hibernate based on the dependencies you include.
+
+For Maven:
+----------
+xml:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+In your application.properties or application.yml, provide the necessary configuration properties for your database connection.
+ Spring Boot will use these properties to set up the data source and EntityManager for JPA.
+
+Example for MySQL:
+
+properties
+Copy code
+spring.datasource.url=jdbc:mysql://localhost:3306/mydatabase
+spring.datasource.username=username
+spring.datasource.password=password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+Create JPA Entity Classes:
+Create Java classes representing your entities. These classes should be annotated with @Entity to indicate that they are JPA entities. 
+Each entity class should also have an @Id-annotated field to specify the primary key.
+
+@Entity
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private double price;
+
+    // Constructors, getters, setters...
+}
+Create Spring Data JPA Repositories:
+Create interfaces that extend the JpaRepository interface provided by Spring Data JPA. These interfaces act as repositories and provide 
+various CRUD methods for your entities.
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    // Custom query methods (if needed)
+    List<Product> findByName(String name);
+}
+Use Repositories in Services or Controllers:
+Now you can inject the Spring Data JPA repository interfaces into your services or controllers to interact with the database.
+
+@Service
+public class ProductService {
+    private final ProductRepository productRepository;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    // Other service methods...
+}
+Spring Boot will automatically create an instance of the ProductRepository and inject it into your service class. 
+You can then use the repository's methods to perform various data access operations.
+
+That's it! With Spring Data JPA, you can easily implement the data access layer of your Spring Boot application without
+ writing boilerplate code for database interactions and custom queries. The framework handles the database connection, SQL generation, 
+and other JPA-related tasks behind the scenes, allowing you to focus on your application's business logic.
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+How can you define multiple data sources in a Spring Boot application?
+
+In a Spring Boot application, you can define multiple data sources by configuring multiple DataSource beans in your application's configuration. Here's a step-by-step guide on how to achieve this:
+
+Define Configuration Properties:
+In your application.properties or application.yml file, define the properties for each data source. Each data source should have its own set of properties such as URL, username, password, driver class, etc. For example:
+properties
+Copy code
+# First Data Source
+spring.datasource.url=jdbc:mysql://localhost:3306/db1
+spring.datasource.username=user1
+spring.datasource.password=password1
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Second Data Source
+datasource.second.url=jdbc:mysql://localhost:3306/db2
+datasource.second.username=user2
+datasource.second.password=password2
+datasource.second.driver-class-name=com.mysql.cj.jdbc.Driver
+Create Configuration Classes:
+Next, create two configuration classes, one for each data source. These classes will define the respective DataSource beans. Make sure to use different bean names for each DataSource bean.
+
+@Configuration
+public class FirstDataSourceConfig {
+
+    @Bean
+    @ConfigurationProperties("spring.datasource")
+    public DataSource firstDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+}
+
+@Configuration
+@ConfigurationProperties("datasource.second")
+public class SecondDataSourceConfig {
+
+    @Bean
+    public DataSource secondDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+}
+Specify Base Package for Component Scan:
+In your main application class, make sure to specify the base package for component scanning so that Spring can detect and 
+register the configuration classes:
+
+@SpringBootApplication(scanBasePackages = "com.example")
+public class YourSpringBootApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(YourSpringBootApplication.class, args);
+    }
+}
+Use Data Sources in JPA or JDBC Configuration:
+If you're using JPA for persistence, you can specify the data source in your JPA configuration:
+java
+Copy code
+@Configuration
+@EnableJpaRepositories(basePackages = "com.example.repository1", entityManagerFactoryRef = "firstEntityManagerFactory")
+public class FirstJpaConfig {
+
+    @Primary
+    @Bean
+    public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(EntityManagerFactoryBuilder builder,
+                                                                             @Qualifier("firstDataSource") DataSource dataSource) {
+        return builder.dataSource(dataSource)
+                .packages("com.example.model1")
+                .persistenceUnit("first")
+                .build();
+    }
+
+    // Other JPA-related beans can be defined here...
+}
+Similarly, you can create a separate JPA configuration class for the second data source.
+If you're using plain JDBC, you can simply inject the DataSource beans where needed.
+That's it! With these configurations, you now have multiple data sources defined in your Spring Boot application, and you can 
+use them as per your requirements.
+
+beans------------------------------------------------------------------------------------------------------------------------------------
+what is beans in spring boot
+
+In Spring Boot, "beans" refer to the objects that are managed by the Spring container (also known as the Spring IoC container). 
+The Spring container is responsible for creating, initializing, and managing these beans throughout the lifecycle of a Spring Boot application.
+
+Beans are Java objects that are configured and wired together in the Spring application context. 
+These objects represent various components of your application, such as services, data repositories, controllers, and other business logic components. 
+By defining beans, you can take advantage of dependency injection and loose coupling in your application, which makes it easier to maintain, test, and 
+extend.
+
+In Spring Boot, you can define beans in multiple ways:
+
+Component Scanning: By annotating classes with @Component, @Service, @Repository, or @Controller (or their meta-annotations 
+                    @RestController, @Configuration, etc.), Spring Boot automatically detects and registers these classes as 
+                    beans during component scanning.
+
+Java Configuration: You can use Java configuration classes annotated with @Configuration and define methods annotated 
+                    with @Bean to explicitly create and configure beans.
+
+XML Configuration: Though less common in Spring Boot, you can define beans using XML configuration files.
+
+For example:
+@Service
+public class MyService {
+    // Service logic
+}
+
+@Configuration
+public class MyConfig {
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+Once the beans are defined, Spring Boot manages their lifecycle, dependencies, and any required configurations. 
+You can then inject these beans into other components using @Autowired annotation or constructor-based injection.
+
+java
+@RestController
+public class MyController {
+    private final MyService myService;
+
+    @Autowired
+    public MyController(MyService myService) {
+        this.myService = myService;
+    }
+
+    // Controller logic using MyService
+}
+By using beans and dependency injection, you promote a more modular and maintainable design for your Spring Boot application. 
+Spring Boot takes care of creating and wiring these beans, allowing you to focus on building your application's functionality.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+How do you implement security features like authentication and authorization in a Spring Boot application ?
+
+Implementing security features like authentication and authorization in a Spring Boot application can be achieved using Spring Security.
+step-1:Include Spring Security Dependency:
+Ensure that you have the Spring Security starter dependency in your pom.xml
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+      </dependency>
+
+step-2:Configure Security Settings:
+By default, Spring Security enables basic form-based authentication with a username/password login form. You can configure additional security settings in the application.properties or application.yml file. For example:
+properties
+----------
+# Enable basic form-based authentication
+spring.security.user.name=user
+spring.security.user.password=password
+
+step-3:Implement UserDetailsService:
+To authenticate users against a database or custom user store, you need to implement the UserDetailsService interface. This interface has a single method loadUserByUsername() where you can retrieve user details from your data store and return a UserDetails object.
+
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
+
+    @Autowired
+    private UserRepository userRepository; // Your custom user repository
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Map your user entity to Spring Security's UserDetails
+        return org.springframework.security.core.userdetails.User.builder()
+            .username(user.getUsername())
+            .password(user.getPassword())
+            .roles(user.getRoles()) // Or authorities, depending on your needs
+            .build();
+    }
+}
+step-4:Secure Your Endpoints (Authorization):
+Use Spring Security's @Secured, @PreAuthorize, or @PostAuthorize annotations to secure your endpoints. For example:
+
+@RestController
+public class MyController {
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/admin")
+    public String adminOnlyEndpoint() {
+        return "Hello Admin!";
+    }
+
+    // Other endpoints...
+}
+With these steps, you have implemented authentication and authorization in your Spring Boot application using Spring Security. 
+Users will now be prompted to log in, and only authorized users with the necessary roles or authorities will be able to access secured endpoints.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+How can you enable logging in a Spring Boot application?
+
+Configure Logging Level (Optional):
+You can configure the logging level to control the amount of log output generated. 
+The available logging levels, in increasing order of severity, are: TRACE, DEBUG, INFO, WARN, and ERROR. 
+By default, Spring Boot sets the log level to INFO.
+
+You can configure the logging level in the "application.properties" or "application.yml" file:
+
+properties
+----------
+# Set log level for the whole application
+logging.level.root=INFO
+
+# Set log level for specific packages or classes
+logging.level.com.example=DEBUG
+
+Use Logging in Your Application:
+You can use logging in your Spring Boot application by injecting a logger into your classes using the @Slf4j annotation or the LoggerFactory. For example:
+Using @Slf4j annotation:
+-------------------------
+import lombok.extern.slf4j.Slf4j;
+@RestController
+@Slf4j
+public class MyController {
+    @GetMapping("/hello")
+    public String hello() {
+        log.info("Handling request for /hello endpoint");
+        return "Hello, world!";
+    }
+}
+Using LoggerFactory:
+-----------------------
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@RestController
+public class MyController {
+    private static final Logger log = LoggerFactory.getLogger(MyController.class);
+
+    @GetMapping("/hello")
+    public String hello() {
+        log.info("Handling request for /hello endpoint");
+        return "Hello, world!";
+    }
+}
+
+View Log Output:
+----------------
+Once you have enabled logging and used it in your application, the log output will be available in the standard output (usually console) by default. 
+However, you can also configure log output to files or other destinations using appropriate log configurations. 
+By default, log files are created in the logs folder in the application's working directory.
+
+Note that in a production environment, you may want to configure more advanced logging settings like log rotation, 
+log formatting, and log output to external systems like a centralized logging server (e.g., ELK stack). Spring Boot provides 
+flexibility for configuring logging based on your requirements.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+How can you handle exceptions and errors in a Spring Boot application?
+
+Spring Boot provides several mechanisms to handle exceptions and errors:
+
+Using @ControllerAdvice and @ExceptionHandler:
+You can create a global exception handler using @ControllerAdvice and handle exceptions centrally. 
+Create a class annotated with @ControllerAdvice and define methods with @ExceptionHandler to handle specific exceptions or error scenarios. 
+These methods will be called whenever the specified exceptions are thrown.
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGenericException(Exception ex) {
+        // Log the exception
+        // Perform additional error handling if required
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        // Log the exception
+        // Perform additional error handling if required
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    // Add more exception handlers for different exceptions
+}
+Using @RestControllerAdvice for JSON Responses:
+If your application returns JSON responses, you can use @RestControllerAdvice along with @ExceptionHandler to handle exceptions and 
+return JSON error responses.
+
+@RestControllerAdvice
+public class GlobalRestControllerExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
+        // Log the exception
+        // Perform additional error handling if required
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", "An unexpected error occurred");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        // Log the exception
+        // Perform additional error handling if required
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    // Add more exception handlers for different exceptions
+}
+Using @ResponseStatus for Custom Exceptions:
+You can define custom exception classes and use the @ResponseStatus annotation to specify the HTTP status code to be returned when 
+these exceptions are thrown.
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+}
+Using ErrorController for Custom Error Pages:
+If you need custom error pages for specific HTTP status codes, you can implement the ErrorController interface to handle errors and
+ return custom error views.
+
+@Controller
+public class CustomErrorController implements ErrorController {
+
+    @RequestMapping("/error")
+    public String handleError(HttpServletRequest request) {
+        // Retrieve error information from the request
+        // Return custom error view based on the error information
+    }
+
+    @Override
+    public String getErrorPath() {
+        return "/error";
+    }
+}
+Remember to configure custom error pages in your application.properties or application.yml:
+
+properties
+----------
+server.error.path=/error
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+How can you implement caching in a Spring Boot application?
+
+Caching can significantly improve application performance by storing frequently accessed data in memory, reducing the 
+need to recompute or retrieve the data from a slow data source. 
+
+Step 1: Enable Caching in Application Configuration:
+              you need to enable caching by adding the @EnableCaching annotation to the main class or any configuration class. 
+              This annotation enables the caching infrastructure provided by Spring.
+Step 2: Define Caching Configuration:
+        Next, define caching configuration by using the @CacheConfig annotation on the class level or the @Cacheable annotation 
+        on the methods you want to cache. The @CacheConfig annotation can be used to set common caching properties for all methods within the class.
+Step 3: Annotate Methods to be Cached
+Step 4:Configure Cache Properties (Optional)
+----------------------------------------------------------------------------------------------------------------------------------------
+
+What are some strategies for deploying a Spring Boot application?
+
+Deploying a Spring Boot application can be done using various strategies, depending on your infrastructure and requirements. 
+Here are some common strategies for deploying a Spring Boot application:
+
+Standalone JAR/WAR: Spring Boot applications can be packaged as executable JAR (Java Archive) or WAR (Web Application Archive) files. 
+                    You can run the application using the java -jar command or deploy it to a servlet container like Apache Tomcat. 
+                    This approach is simple and self-contained, making it easy to deploy and manage.
+
+Containerization (Docker): Docker is a popular platform for containerization, which allows you to package your Spring Boot application 
+                     along with its dependencies, configurations, and environment into a Docker image. This image can be deployed consistently 
+                     across different environments, making it easier to manage and scale the application.
+
+Cloud Platforms: Cloud platforms like AWS, Google Cloud Platform (GCP), Microsoft Azure, and others offer PaaS (Platform as a Service) solutions 
+                 where you can deploy your Spring Boot application with minimal configuration. 
+                 These platforms handle the underlying infrastructure, scaling, and monitoring for you.
+
+Traditional Web Server: If you have a traditional setup with a dedicated server or virtual machine, you can deploy your Spring Boot application 
+                  by installing a web server (e.g., Apache or Nginx) and configuring it to proxy requests to your Spring Boot application 
+                  running on a specific port.
+
+Continuous Integration/Continuous Deployment (CI/CD): Implement CI/CD pipelines to automate the deployment process. 
+                  Use tools like Jenkins, GitLab CI, Travis CI, or CircleCI to build and deploy the application automatically
+                  whenever changes are pushed to the repository.
+
+Serverless Deployments: For specific use cases, you can leverage serverless architectures like AWS Lambda, Azure Functions, 
+                  or Google Cloud Functions. These platforms allow you to deploy individual functions that can be triggered 
+                  by events and do not require the management of servers.
+
+Kubernetes: If you have a complex microservices architecture, Kubernetes is a popular choice for container orchestration. 
+            It allows you to deploy, scale, and manage containerized applications efficiently.
+
+Blue-Green Deployment: Set up two identical environments (blue and green), deploy the updated version of your Spring Boot 
+                       application to the green environment, test it thoroughly, and then switch the traffic from blue to 
+                       green to make it live. This approach reduces downtime and allows easy rollback if needed.
+
+Rolling Deployment: Deploy the updated version of your application incrementally, typically one instance at a time, while 
+                    keeping the older version running. This gradual update ensures high availability and reduces the risk of downtime.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+What are some ways to manage application profiles in Spring Boot?
+
+You can activate a profile using the spring.profiles.active property in the application.properties file:
+
+properties
+---------
+spring.profiles.active=dev
+
+@Profile Annotation:
+You can use the @Profile annotation at the class or method level to conditionally enable or disable a bean based on the active profiles.
+
+@Configuration
+@Profile("dev")
+public class DevConfig {
+    // Beans specific to the 'dev' profile
+}
+Profile-specific Configuration Classes:
+You can create separate configuration classes for each profile and use the @Profile annotation to ensure that only relevant 
+beans are created for each profile.
+
+@Configuration
+@Profile("dev")
+public class DevConfig {
+    // Beans specific to the 'dev' profile
+}
+
+@Configuration
+@Profile("prod")
+public class ProdConfig {
+    // Beans specific to the 'prod' profile
+}
+Spring Cloud Config Server:
+For more advanced scenarios, you can use Spring Cloud Config Server to manage configuration files externally and 
+set profiles for different environments dynamically. This allows you to centralize and version control your configurations.
+
+With these methods, you can manage application profiles effectively in your Spring Boot application. 
+Profiles help you maintain different sets of configurations, properties, and beans for various environments, making your 
+application more adaptable and easier to manage in different scenarios.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+How can you implement file uploads in a Spring Boot application?
+
+Implementing file uploads in a Spring Boot application involves handling the file upload requests, processing the uploaded files, 
+and saving them to a specific location. Here's a step-by-step guide on how to achieve this:
+
+1. **Configure File Upload Properties:**
+In your `application.properties` or `application.yml`, configure the properties related to file upload, such as the maximum file size 
+allowed and the temporary location to store uploaded files.
+
+```properties
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+spring.servlet.multipart.enabled=true
+```
+
+2. **Create an Upload Controller:**
+Create a controller that handles the file upload requests. You can use the `@RestController` annotation to make it a RESTful controller.
+ In this example, we'll handle single file uploads.
+
+```java
+@RestController
+public class FileUploadController {
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        // Logic to handle file upload
+        // Save the file to the desired location
+        // Return a response indicating success or failure
+    }
+}
+```
+
+3. **Handle File Upload Logic:**
+Inside the `uploadFile` method, you can implement the logic to handle the uploaded file. This may involve checking the file's content type, 
+size, or any other validation required for your application.
+
+```java
+@RestController
+public class FileUploadController {
+
+    @Value("${upload.directory}")
+    private String uploadDirectory; // Configured in application.properties or application.yml
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("Please select a file to upload.");
+        }
+
+        // Additional validation, if required
+
+        try {
+            // Save the file to the specified location
+            Path path = Paths.get(uploadDirectory + "/" + file.getOriginalFilename());
+            Files.write(path, file.getBytes());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload the file.");
+        }
+
+        return ResponseEntity.ok("File uploaded successfully.");
+    }
+}
+```
+
+4. **Configure File Upload Directory:**
+Configure the directory where uploaded files will be saved. You can specify the location in the `application.properties` or `application.yml` file.
+
+```properties
+upload.directory=/path/to/upload/directory
+```
+5. **Enable Multipart Support in Spring Boot:**
+Ensure that your Spring Boot application is set up to handle multipart requests. By default, Spring Boot enables multipart support, 
+so you don't need to add any extra configuration for this.
+
+With these steps, your Spring Boot application is now ready to handle file uploads. When a file is uploaded using the `/upload` endpoint,
+ it will be saved to the specified directory, and an appropriate response will be returned to the client. You can extend this implementation
+ to handle multiple file uploads, validation, and further processing based on your application's needs.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+How do you configure external properties in a Spring Boot application?
+
+Configuring external properties in a Spring Boot application allows you to separate the application configuration 
+from the application code, making it easier to manage different configurations for various environments (e.g., development, 
+testing, production). You can use external properties files, environment variables, or command-line arguments to provide
+the configuration values. 
+
+External properties files (application.properties or application.yml):
+By default, Spring Boot automatically looks for application.properties or application.yml files in the following locations, 
+in the order listed:
+
+-->Inside the src/main/resources directory of your application's classpath (for default configurations).
+-->In the root directory of your application's classpath (for overriding default configurations).
+-->Outside the packaged jar, in the current working directory (for overriding configurations during deployment).
+You can use these properties files to configure various aspects of your application, such as the data source, server port, 
+logging, and more. For example:
+
+properties
+----------
+# application.properties
+spring.datasource.url=jdbc:mysql://localhost:3306/mydatabase
+spring.datasource.username=myusername
+spring.datasource.password=mypassword
+server.port=8080
+---------------------------------------------------------------------------------------------------------------------------------
+
+What is the significance of the application.properties (or application.yml) file in Spring Boot?
+
+The `application.properties` (or `application.yml`) file is a key configuration file in a Spring Boot application. 
+It plays a significant role in defining various properties that configure the behavior of your application. 
+The file is part of the Spring Boot auto-configuration feature, which allows you to provide default settings and 
+override them as needed without writing extensive configuration code.
+
+Here's the significance of the `application.properties` (or `application.yml`) file in Spring Boot:
+
+1. **Property Configuration:** The file is used to define various properties and settings required by your application. 
+                               These properties can control different aspects of the application, including the data source 
+                               configuration, server port, logging settings, cache configuration, internationalization, etc.
+
+2. **Default Values:** Spring Boot leverages a wide range of auto-configuration properties. These properties come with sensible
+                       default values, allowing the application to work out-of-the-box without requiring explicit configuration. 
+                       You can override these defaults in the `application.properties` file if needed.
+
+3. **Profile-specific Configuration:** The file supports profile-specific configurations, enabling you to have different property
+                       values for different environments (e.g., development, production). You can define separate `application-{profile}.
+                       properties` or `application-{profile}.yml` files for each environment.
+
+4. **Externalized Configuration:** The properties file allows you to externalize your configuration, making it easy to modify settings
+                                   without the need to recompile and redeploy your application. It's particularly useful for configuration
+                                   changes in different environments.
+
+5. **Type Safety and Property Binding:** Spring Boot provides strong type safety when binding properties from the `application.properties` 
+                                         file. This means that you can directly bind the properties to specific Java classes using annotations
+                                         like `@ConfigurationProperties` or `@Value`.
+
+6. **Property Expansion:** You can use the `application.properties` file to define properties that include values from other properties, 
+                           allowing you to build dynamic configurations.
+
+7. **YAML Support (application.yml):** Spring Boot allows using the YAML format as an alternative to properties files. YAML provides a more 
+                                       human-readable and concise format for defining configurations.
+
+By using the `application.properties` or `application.yml` file effectively, you can configure your Spring Boot application in a clean, 
+maintainable, and highly flexible way. It promotes good practices in configuration management and supports the convention over configuration 
+principle, reducing the amount of boilerplate code needed for typical configurations.
+-----------------------------------------------------------------------------------------------------------------------------------
+
+How can you override the default port used by a Spring Boot application?
+
+You can override the default port used by a Spring Boot application in several ways. 
+By default, Spring Boot applications use port 8080, but you can change it to a different port to avoid conflicts or 
+to suit your application's requirements. 
+
+Using application.properties or application.yml:
+You can override the default port by adding the server.port property to your application.properties or application.yml file.
+For application.properties:
+
+properties
+Copy code
+server.port=9090
+For application.yml:
+
+yaml
+Copy code
+server:
+  port: 9090
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+What is the difference between Spring Boot Actuator and Spring Boot Admin?
+Spring Boot Actuator and Spring Boot Admin are two different modules in the Spring Boot ecosystem that serve distinct purposes:
+
+1. **Spring Boot Actuator:**
+Spring Boot Actuator is a built-in module of Spring Boot that provides production-ready features for monitoring and managing 
+your application in a production environment. It offers various endpoints and metrics to gather information about your 
+application's health, status, and performance. Actuator exposes these endpoints via HTTP, JMX, or other means, allowing you to 
+monitor and interact with the application in real-time.
+
+Some of the features provided by Spring Boot Actuator include:
+
+- Health Checks: Exposes health endpoints (`/actuator/health`) to check the overall health of the application, including 
+                 database connectivity, disk space, and custom health indicators.
+- Metrics: Collects and exposes various application metrics (e.g., memory usage, request metrics) through the `/actuator/metrics` endpoint.
+- Info: Provides information about the application, such as the application name, version, and environment details, via the 
+                `/actuator/info` endpoint.
+- Environment: Exposes the application's configuration properties through the `/actuator/env` endpoint.
+- Logging: Allows you to view and modify logging levels and configurations at runtime via the `/actuator/loggers` endpoint.
+
+Spring Boot Actuator is essential for monitoring, troubleshooting, and managing your Spring Boot application in production.
+
+2. **Spring Boot Admin:**
+Spring Boot Admin is a separate third-party open-source project that builds on top of Spring Boot Actuator. 
+It provides a user-friendly web-based user interface to monitor and manage multiple Spring Boot applications centrally. 
+Spring Boot Admin acts as a centralized dashboard that aggregates the information exposed by Spring Boot Actuator endpoints 
+from different Spring Boot applications.
+Some of the features provided by Spring Boot Admin include:
+
+- Dashboard: A visual dashboard that displays the health status, metrics, and environment details of all registered Spring Boot applications.
+- Application Details: Detailed information about each registered application, including JVM information, environment properties, and log configurations.
+- Logging: Allows viewing and updating the logging levels of individual applications.
+- Notifications: Provides alerting and notification features, allowing you to be notified about application health changes.
+- Basic Management: Allows you to manage applications remotely, such as shutting down or restarting them.
+
+In summary, Spring Boot Actuator is a core Spring Boot module that offers built-in features for monitoring and managing individual Spring Boot applications, while Spring Boot Admin is a separate tool that leverages Actuator to provide centralized monitoring and management of multiple Spring Boot applications via a user-friendly web interface. 
+Spring Boot Admin is particularly useful in microservices architectures or when you need to manage several Spring Boot applications collectively.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+What is the role of the Spring Boot Starter POMs?
+
+The Spring Boot Starter POMs (Project Object Model) play a vital role in simplifying the dependency management process
+ in Spring Boot applications. A Starter POM is a curated set of dependencies that provides a set of libraries for 
+specific use cases or functionalities. These Starter POMs are designed to help you quickly set up and bootstrap various 
+types of Spring Boot projects.
+
+Here are the main roles and benefits of Spring Boot Starter POMs:
+Dependency Management: Spring Boot Starter POMs simplify the management of dependencies by providing a single, 
+                       well-curated POM for a specific functionality. Instead of manually adding individual dependencies to your project
+Rapid Application Setup: By using Spring Boot Starter POMs, you can quickly set up a Spring Boot application with the desired functionality. 
+                       For example, if you need to create a web application with embedded Tomcat, you can include the spring-boot-starter-web 
+                       Starter POM, and Spring Boot will automatically configure the web application with all necessary dependencies.
+Consistency Across Projects: By using the same Starter POMs across different projects, you can maintain consistency in your applications
+
+Some commonly used Spring Boot Starter POMs include:
+spring-boot-starter-web: For building web applications with embedded Tomcat.
+spring-boot-starter-data-jpa: For working with JPA (Java Persistence API) and databases.
+spring-boot-starter-security: For adding Spring Security features to secure your application.
+spring-boot-starter-test: For including testing frameworks like JUnit and Mockito.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+==================================================== SERVLETS =================================================================================
+
+CGI (Common gateway interface):
+CGI was the first protocol or way of communication between web server and program. It passes a request from a web user to an application program and receives data back to forward to the web user i.e. It is responsible for dynamic content generation.
+
+Advantages of CGI:
+Technology portability: CGI programming can be written in variety of languages like c, c++, perl.
+Web server portability: All service providers support CGI Programs.
+Disadvantages:
+Response time is high.
+CGI scripts are platform-dependent.
+For every request, a new process will be started and web server is limited to start processes.
+CGI programs are not object oriented always.
+Servlet overcomes the above disadvantages.
+
+servlets work flow / how servlets works end to end flow ?(book)
+
+Servlet as component:
+As a component servlet is a program which is executed in web server and responsible for dynamic content generation.
+
+Main tasks of servlet:
+Read the implicit and explicit data sent by web browser.
+Generate result by processing the data.
+Send the implicit and explicit data as a response to the web browser.
+
+Differences between CGI and Servlet ?
+CGI:
+   1)CGI is process based. For every request a new process will be started
+   2)Concurrency problems can’t occur in CGI because it is process based
+   3)Platform dependent.
+   4)Can be written in variety of languages like c, c++, perl.
+   5)Response time is high.
+Servlet:
+  1)Servlet is thread based. For every request a new thread will be started.
+  2)Concurrency problems can occur in servlet because it is thread based.
+  3)Platform independent.
+  4)Can be written only in java.
+  5)Response time is low.
+
+What are the annotations used in Servlet 3 ?
+   There are mainly 3 annotations used for the servlet.
+     @WebServlet : for servlet class.
+     @WebListener : for listener class.
+     @WebFilter : for filter class.
+
+Interview questions:
+
+1) How many objects of a servlet is created?
+Only one object at the time of first request by servlet or web container.
+
+2) What is the life-cycle of a servlet?
+Servlet is loaded
+servlet is instantiated
+servlet is initialized
+service the request
+servlet is destroyed
+
+3) What are the life-cycle methods for a servlet?	                                                      
+public void init(ServletConfig config)	                
+It is invoked only once when first request comes for the servlet. It is used to initialize the servlet.
+
+public void service(ServletRequest request,ServletResponse)throws ServletException,IOException	
+It is invoked at each request.The service() method is used to service the request.
+
+public void destroy()	It is invoked only once when servlet is unloaded.
+
+4) Who is responsible to create the object of servlet?
+The web container or servlet container.
+
+5) When servlet object is created?
+At the time of first request.
+
+6) What is difference between Get and Post method?
+            Get	                                              Post
+  1) Limited amount of data can be sent                 1)Large amount of data can be sent because data 
+     because data is sent in header                       is sent in body
+  2) Not Secured because data is exposed in URL bar     2)Secured because data is not exposed in URL bar.
+  3) Can be bookmarked	                                3)Cannot be bookmarked
+
+7) What is difference between PrintWriter and ServletOutputStream?
+PrintWriter is a character-stream class where as ServletOutputStream is a byte-stream class. 
+The PrintWriter class can be used to write only character-based information whereas ServletOutputStream class 
+can be used to write primitive values as well as character-based information.
+
+8) What is difference between GenericServlet and HttpServlet?
+GenericServlet and HttpServlet are two classes in the Java Servlet API that serve as the foundation for creating 
+servlets in a web application. 
+
+GenericServlet:
+->GenericServlet is an abstract class that provides a generic implementation of the Servlet interface. 
+  It is meant to be subclassed to create custom servlets that handle different types of protocols, not just HTTP.
+->It does not assume any specific protocol, so it can handle requests and responses for various types of 
+  communication like HTTP, FTP, SMTP, etc.
+->GenericServlet has a simplified API that provides basic methods for handling servlet lifecycle events 
+  (init, service, destroy) and managing servlet configuration through ServletConfig.
+->It is suitable for situations where you need to implement non-HTTP servlets or create a servlet that can handle 
+  multiple types of protocols.
+
+HttpServlet:
+->HttpServlet is a subclass of GenericServlet that specifically provides support for handling HTTP requests and responses.
+->It extends the functionality of GenericServlet by providing methods to handle different HTTP methods (GET, POST, 
+  PUT, DELETE, etc.) through the doXXX methods (e.g., doGet, doPost, doPut, etc.).
+->When using HttpServlet, you can directly work with HTTP-specific details like request parameters,headers,sessions,cookies,etc.
+->HttpServlet is the most commonly used class for developing web applications since HTTP is the primary protocol for web communication.
+
+
+9) What is servlet RequestDispatcher interface?(what is servlet collaboration ?
+                                      Servlet collaboration refers to the interaction and communication
+                                      between multiple servlets in a Java web application )
+   or 
+   what is the purpose of RequestDispatcher interface?
+
+The RequestDispatcher interface in the Java Servlet API is used to forward a client's request from one resource (servlet,
+ JSP, or other web components) to another resource within the same web application. It acts as a communication bridge between
+ servlets and allows them to work together to process the client's request and generate a response. 
+
+Request Forwarding: One servlet can forward the request to another servlet using the RequestDispatcher. 
+This is achieved by calling the forward() method of RequestDispatcher with the original request and response objects, 
+allowing the second servlet to process the request and generate the response. 
+
+Request Including: Similar to forwarding, one servlet can include the response from another servlet using the RequestDispatcher's 
+include() method. The included servlet's output is included in the calling servlet's response. 
+This approach allows multiple servlets to contribute content to a single response, useful for assembling dynamic content from 
+different sources.
+
+Redirecting: Servlets can collaborate by redirecting requests to other URLs. A servlet can send a redirect response to the client
+ using the sendRedirect() method of HttpServletResponse. The client then makes a new request to the redirected URL, and the processing
+ continues with the new request.
+
+    How to get the object of RequestDispatcher
+    The getRequestDispatcher() method of ServletRequest interface returns the object of RequestDispatcher. Syntax:
+
+    Syntax of getRequestDispatcher method
+    public RequestDispatcher getRequestDispatcher(String resource);  
+    Example of using getRequestDispatcher method
+    RequestDispatcher rd=request.getRequestDispatcher("servlet2");  
+   //servlet2 is the url-pattern of the second servlet  
+  
+    rd.forward(request, response);//method may be include or forward  
+
+10) Can you call a jsp from the servlet?
+    Yes, one of the way is RequestDispatcher interface for example:
+
+    RequestDispatcher rd=request.getRequestDispatcher("/login.jsp");  
+    rd.forward(request,response); 
+
+11)Difference between forward() method and sendRedirect() method ?
+      forward() method	                                     sendRedirect() method
+   1) forward() sends the same request            1) sendRedirect() method sends new request always because 
+      to another resource	                     it uses the URL bar of the browser
+   2) forward() method works at server side	  2) sendRedirect() method works at client side
+   3) forward() method works within the           3) sendRedirect() method works within and outside the server
+      server only	
+
+12) What is difference between ServletConfig and ServletContext?
+ServletConfig:
+->ServletConfig is an interface that is used to pass initialization information to a specific servlet 
+  during its initialization phase.
+->Each servlet has its own unique ServletConfig object, which is created by the web container during 
+  servlet initialization.
+->It provides information specific to the servlet, such as initialization parameters configured for 
+  that particular servlet in the deployment descriptor (web.xml). These parameters are defined using 
+  the <init-param> element in the web.xml file.
+->ServletConfig allows a servlet to access its initialization parameters using the getInitParameter(String name)
+  and getInitParameterNames() methods.
+->The ServletConfig is primarily used by a single servlet for its own configuration and setup.
+
+ServletContext:
+->ServletContext is an interface that represents the entire web application and provides access to the application-wide
+  resources and configuration information.
+->It is a global scope object shared by all servlets and other components (like filters, listeners, and JSPs) within
+  the same web application.
+->The ServletContext is created by the web container when the application starts up, and it remains available until 
+  the application is shut down.
+->It is used to store and retrieve application-wide attributes and to access information about the web application, 
+  such as its name, version, and server information.
+->ServletContext is particularly useful for sharing data and resources across multiple servlets and components within 
+  the same web application.
+->It also provides methods to work with resources and assets within the web application, like reading files, obtaining
+  directory paths, and working with request and session attributes.
+
+13)What is Session Tracking?
+Session simply means a particular interval of time.
+
+Session Tracking is a way to maintain state of an user.Http protocol is a stateless protocol.
+Each time user requests to the server, server treats the request as the new request.So we need to maintain the state 
+of an user to recognize to particular user.
+
+14) What are Cookies?
+A cookie is a small piece of information that is persisted between the multiple client requests. A cookie has a name, 
+a single value, and optional attributes such as a comment, path and domain qualifiers, a maximum age, and a version number.
+   What is the disadvantage of cookies?
+   It will not work if cookie is disabled from the browser.
+
+
+15) What is difference between Cookies and HttpSession?
+Cookie works at client side whereas HttpSession works at server side.
+
+16)What is filter?
+A filter is an object that is invoked either at the preprocessing or postprocessing of a request. It is pluggable.
+
+17)How can we perform any action at the time of deploying the project?
+By the help of ServletContextListener interface.
+
+18) How can we upload the file to the server using servlet?
+One of the way is by MultipartRequest class provided by third party.
+
+19) What is load-on-startup in servlet?
+The load-on-startup element of servlet in web.xml is used to load the servlet at the time of deploying the project or server start. 
+So it saves time for the response of first request.
+
+20)What if we pass negative value in load-on-startup?
+It will not affect the container, now servlet will be loaded at first request.
+
+21) What is war file?
+A war (web archive) file specifies the web elements. A servlet or jsp project can be converted into a war file. 
+Moving one servlet project from one place to another will be fast as it is combined into a single file.
+
+22) How to create war file?
+The war file can be created using jar tool found in jdk/bin directory. If you are using Eclipse or Netbeans IDE, 
+you can export your project as a war file.
+
+23) Which event is fired at the time of project deployment and undeployment?
+ServletContextEvent.
+
+24)Which event is fired at the time of session creation and destroy?
+HttpSessionEvent.
+
+25) Which event is fired at the time of setting, getting or removing attribute from application scope?
+ServletContextAttributeEvent.
+
+26)What is the use of welcome-file-list?
+It is used to specify the welcome file for the project.
+
+27)What is the use of attribute in servlets?
+Attribute is a map object that can be used to set, get or remove in request, session or application scope. 
+It is mainly used to share information between one servlet to another.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
